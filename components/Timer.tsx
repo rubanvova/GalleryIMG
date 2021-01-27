@@ -39,7 +39,7 @@ const Time: React.FC<PropsTimer> = ({ time, onFinish }) => {
 };
 
 const Timer: React.FC<PropsTimer> = ({ time, onFinish }) => {
-  const [state, setState] = useState(0);
+  const [, setState] = useState(0);
   const [timer, setTimer] = useState<any>(null);
   useEffect(() => {
     if (time.getTime() - Date.now() > 0) {
