@@ -16,7 +16,6 @@ const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
     time: 'January 28 2021 12:09:00',
     timeZone: 'America/Los_Angeles',
   });
-  console.log(tz && time === '');
 
   const handlerButton = () => {
     if (tz === '') {
@@ -28,7 +27,6 @@ const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
     } else {
       setTimeAndTz({ time: time, timeZone: tz });
       setState(false);
-      console.log(timeAndTz);
     }
   };
 
