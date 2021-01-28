@@ -50,8 +50,6 @@ const Timer: React.FC<PropsTimer> = ({ time, onFinish, timeZone }) => {
   const [timer, setTimer] = useState<any>(null);
   const date = moment(time).tz(timeZone);
 
-  // const date = new Date(time);
-
   useEffect(() => {
     if (date.valueOf() - Date.now() > 0) {
       const t = setInterval(() => {
