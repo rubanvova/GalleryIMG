@@ -4,7 +4,8 @@
   justify-content: center;
   flex-wrap: wrap;
   height: 100%;
-  width: 100%;
+  max-width: 1950px;
+  margin: 0px auto;
 }
 
 .img {

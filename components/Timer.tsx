@@ -1,16 +1,17 @@
 import { useEffect, useState, useCallback } from 'react';
 import styles from './Timer.module.css';
+import moment from 'moment-timezone';
 
-const useCountDown = (time: Date) => {
-  return time.getTime() - Date.now();
+const useCountDown = (time: moment.Moment) => {
+  return time.valueOf() - Date.now();
 };
 
-type PropsTimer = {
-  time: Date;
+type PropsTime = {
+  time: moment.Moment;
   onFinish: () => void;
 };
 
-const Time: React.FC<PropsTimer> = ({ time, onFinish }) => {
+const Time: React.FC<PropsTime> = ({ time, onFinish }) => {
   const countDown = useCountDown(time);
   useEffect(() => {
     if (countDown <= 0) {
@@ -38,11 +39,21 @@ const Time: React.FC<PropsTimer> = ({ time, onFinish }) => {
   );
 };
 
-const Timer: React.FC<PropsTimer> = ({ time, onFinish }) => {
+type PropsTimer = {
+  time: string;
+  onFinish: () => void;
+  timeZone: string;
+};
+
+const Timer: React.FC<PropsTimer> = ({ time, onFinish, timeZone }) => {
   const [, setState] = useState(0);
   const [timer, setTimer] = useState<any>(null);
+  const date = moment(time).tz(timeZone);
+
+  // const date = new Date(time);
+
   useEffect(() => {
-    if (time.getTime() - Date.now() > 0) {
+    if (date.valueOf() - Date.now() > 0) {
       const t = setInterval(() => {
         setState(Date.now());
       }, 1000);
@@ -54,34 +65,7 @@ const Timer: React.FC<PropsTimer> = ({ time, onFinish }) => {
     clearInterval(timer);
     onFinish();
   }, [timer, onFinish]);
-  return <Time time={time} onFinish={onFinishCalback} />;
+  return <Time time={date} onFinish={onFinishCalback} />;
 };
 
-type PropsShowTimer = {
-  date: string;
-};
-
-const ShowTimer: React.FC<PropsShowTimer> = ({ date }) => {
-  const [state, setState] = useState<boolean>(false);
-  const time = new Date(date);
-
-  return (
-    <div className={styles.wrapTimer}>
-      {state ? (
-        <iframe
-          className={styles.video}
-          width="560"
-          height="315"
-          src="https://www.youtube.com/embed/DLzxrzFCyOs?autoplay=1"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
-      ) : (
-        <Timer time={time} onFinish={() => setState(true)} />
-      )}
-    </div>
-  );
-};
-
-export default ShowTimer;
+export default Timer;

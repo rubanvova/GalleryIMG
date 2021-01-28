@@ -1,0 +1,13 @@
+.wrapTimer {
+  display: flex;
+  justify-content: center;
+  height: 350px;
+}
+.timer {
+  display: flex;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+}
