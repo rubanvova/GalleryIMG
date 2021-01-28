@@ -23,6 +23,8 @@ const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
       alert('Select zone');
     } else if (time === '') {
       alert('Enter date');
+    } else if (time.split(' ').length - 1 < 3) {
+      alert('Enter date');
     } else {
       setTimeAndTz({ time: time, timeZone: tz });
       setState(false);
