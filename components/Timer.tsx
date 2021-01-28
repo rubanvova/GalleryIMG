@@ -48,7 +48,7 @@ type PropsTimer = {
 const Timer: React.FC<PropsTimer> = ({ time, onFinish, timeZone }) => {
   const [, setState] = useState(0);
   const [timer, setTimer] = useState<any>(null);
-  const date = moment(time).tz(timeZone);
+  const date = moment.tz(time, timeZone);
 
   useEffect(() => {
     if (date.valueOf() - Date.now() > 0) {
@@ -57,6 +57,11 @@ const Timer: React.FC<PropsTimer> = ({ time, onFinish, timeZone }) => {
       }, 1000);
       setTimer(t);
     }
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
   }, []);
 
   const onFinishCalback = useCallback(() => {

@@ -10,23 +10,19 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
   const [state, setState] = useState<boolean>(false);
-  const [tz, setTz] = useState<string>('');
-  const [time, setTime] = useState<string>('');
+  const [time, setTime] = useState<string>('2021-01-28 16:00:00');
+  const [tz, setTz] = useState<string>('Europe/Minsk');
   const [timeAndTz, setTimeAndTz] = useState({
-    time: 'January 28 2021 12:09:00',
-    timeZone: 'America/Los_Angeles',
+    time: '2021-01-28 16:00:00',
+    timeZone: 'Europe/Minsk',
   });
 
   const handlerButton = () => {
-    if (tz === '') {
-      alert('Select zone');
-    } else if (time === '') {
-      alert('Enter date');
-    } else if (time.split(' ').length - 1 < 3) {
-      alert('Enter date');
-    } else {
+    if (time && tz) {
       setTimeAndTz({ time: time, timeZone: tz });
       setState(false);
+    } else {
+      alert('Enter date');
     }
   };
 
@@ -61,10 +57,10 @@ const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
       <div className={styles.nav}>
         <input
           type="text"
-          placeholder="January 28 2021 12:09:00"
+          value={time}
           onChange={(e) => setTime(e.target.value)}
         />
-        <select onClick={(e) => setTz(e.currentTarget.value)}>
+        <select value={tz} onChange={(e) => setTz(e.currentTarget.value)}>
           <option value="America/Los_Angeles">America/Los_Angeles</option>
           <option value="America/New_York">America/New_York</option>
           <option value="Europe/Minsk">Europe/Minsk</option>
