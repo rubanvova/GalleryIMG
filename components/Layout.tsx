@@ -13,13 +13,17 @@ const Layout: React.FC<Props> = ({ children, title = 'images' }) => {
   const [tz, setTz] = useState<string>('');
   const [time, setTime] = useState<string>('');
   const [timeAndTz, setTimeAndTz] = useState({
-    time: '',
-    timeZone: '',
+    time: 'January 28 2021 12:09:00',
+    timeZone: 'America/Los_Angeles',
   });
 
   const handlerButton = () => {
-    setTimeAndTz({ time: time, timeZone: tz });
-    setState(false);
+    if (tz && time === '') {
+      alert('Введите дату');
+    } else {
+      setTimeAndTz({ time: time, timeZone: tz });
+      setState(false);
+    }
   };
 
   return (
